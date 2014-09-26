@@ -24,9 +24,10 @@ struct graph_info {
 };
 /* custom vertex for tree graphs */
 struct tree_vertex_info{
+    /* corrilating vertex in graph */
+    vertex_desc v_in_g;
     /* pointer to parent vertex */
-    vertex_desc vertex_in_graph;
-    boost::any parent_in_tree;
+    boost::any p_in_t;
 };
 /* the tree graph type for descendants and ancestor trees. */
 typedef boost::adjacency_list<boost::listS, boost::listS, boost::directedS,
