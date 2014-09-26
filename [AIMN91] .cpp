@@ -1,14 +1,15 @@
-/* Ceid Upatras academic year 2013-2014
- * Gryllos Prokopis
+/* Gryllos Prokopis 2013-2014
+ * Implementation of dynamic incremental algorithm for minimal length paths
+ * [AIMN91] as described in the Journal of Algorithms 12 (1991), pp.615-638.
  */
 
 #include "aimn91.h"
 
 DistanceMap d;
-/* using this pointer map we associate each vertex with a set of descendants 
-organised as a tree of forward minimal paths (DESC[x]) rooted at x and a set of
-ancestors organized as a tree of backward minimal paths (ANC[x]) rooted at x and
-Initialize each tree with its root vertex. */
+/* using boost pointer map we associate each vertex with a set of descendants
+   organised as a tree of forward minimal paths (DESC[x]) rooted at x and a set
+   of ancestors organized as a tree of backward minimal paths (ANC[x]) rooted at
+   x and Initialize each tree with its root vertex. */
 boost::ptr_map<vertex_desc, Tree> DESC,ANC;
 
 /* We are going to use this type to store pointers to the ANC and DESC trees
@@ -43,7 +44,7 @@ void UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i, vertex_desc j, 
         /* if total distance from vertex x to vertex y is shortent after (i,j) 
            edge was added. */
         if (dist_x_i + 1 + dist_j_y < dist_x_y){
-            /**************************************/   
+            /**************************************/
             /* update forward minimal path trees. */
             /**************************************/
             if (y == j){
@@ -74,7 +75,7 @@ void UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i, vertex_desc j, 
             else{
                 vertex_tree parent_of_y = boost::any_cast<vertex_tree>(pruned_desc_j[y_in_tree].parent_in_tree);
                 if (FORWARD[std::make_pair(x,y)]==NULL){
-                    /* add vertex_for_y in desc_x with the same parent it has in 
+                    /* add vertex_for_y in desc_x with the same parent it has in
                     pruned desc_j. */
                     vertex_tree vertex_for_y = boost::add_vertex(desc_x);
                     desc_x[vertex_for_y].vertex_in_graph = y;
@@ -96,8 +97,8 @@ void UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i, vertex_desc j, 
                     if (N[*vi_tree.first].vertex_in_graph == pruned_desc_j[parent_of_y].vertex_in_graph)
                         break;
                 }
-                N[y_in_N].vertex_in_graph = y; 
-                N[y_in_N].parent_in_tree = *vi_tree.first; 
+                N[y_in_N].vertex_in_graph = y;
+                N[y_in_N].parent_in_tree = *vi_tree.first;
                 edge_tree e2 = boost::add_edge(*vi_tree.first,y_in_N,desc_x).first;
             }
             /***************************************/
@@ -187,6 +188,5 @@ void aimn91(Graph& g, DistanceMap& D)
         ANC[*vi.first] = anc;
         BACKWARD[std::make_pair(*vi.first,*vi.first)] = root_of_anc;
     }
-
 }
 
