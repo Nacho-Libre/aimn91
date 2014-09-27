@@ -17,19 +17,20 @@ typedef boost::adjacency_list < boost::vecS,boost::vecS,boost::undirectedS,
 
 typedef boost::graph_traits<Graph>::vertex_descriptor vertex_desc;
 typedef boost::graph_traits<Graph>::vertex_iterator vertex_it;
+typedef boost::property_map<Graph, boost::edge_weight_t>::type WeightMap;
 
-/* tree graph info */
+// tree graph info
 struct graph_info { 
         boost::any root;
 };
-/* custom vertex for tree graphs */
+// custom vertex for tree graphs
 struct tree_vertex_info{
-    /* corrilating vertex in graph */
+    // corrilating vertex in graph
     vertex_desc v_in_g;
-    /* pointer to parent vertex */
+    // pointer to parent vertex
     boost::any p_in_t;
 };
-/* the tree graph type for descendants and ancestor trees. */
+// the tree graph type for descendants and ancestor trees
 typedef boost::adjacency_list<boost::listS, boost::listS, boost::directedS,
         tree_vertex_info, boost::no_property, graph_info> Tree;
 
