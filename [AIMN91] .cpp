@@ -64,7 +64,8 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i,
                     boost::remove_edge(boost::any_cast<vertex_tree>(desc_x[F[std::make_pair(x,j)]].p_in_t),
                         F[std::make_pair(x,j)],desc_x);
                     desc_x[F[std::make_pair(x,j)]].p_in_t = F[std::make_pair(x,i)];
-                    edge_tree e1 = boost::add_edge(F[std::make_pair(x,i)],F[std::make_pair(x,j)],desc_x).first;
+                    edge_tree e1 = boost::add_edge(F[std::make_pair(x,i)],
+                        F[std::make_pair(x,j)],desc_x).first;
                 }
 
                 /* create the pruned copy of desc_j. */
@@ -81,7 +82,8 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i,
                     vertex_tree vertex_for_y = boost::add_vertex(desc_x);
                     desc_x[vertex_for_y].v_in_g = y;
                     desc_x[vertex_for_y].p_in_t = F[std::make_pair(x,pruned_desc_j[parent_of_y].v_in_g)];
-                    edge_tree e1 = boost::add_edge(F[std::make_pair(x,desc_x[parent_of_y].v_in_g)],vertex_for_y,desc_x).first;
+                    edge_tree e1 = boost::add_edge(F[std::make_pair(x,desc_x[parent_of_y].v_in_g)],
+                        vertex_for_y,desc_x).first;
                     F[std::make_pair(x,y)] = vertex_for_y;
                 }
                 else{
@@ -117,7 +119,8 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i,
                     boost::remove_edge(boost::any_cast<vertex_tree>(anc_y[B[std::make_pair(y,i)]].p_in_t),
                         B[std::make_pair(y,i)],anc_y);
                     anc_y[B[std::make_pair(y,i)]].p_in_t = B[std::make_pair(y,j)];
-                    edge_tree e2 = boost::add_edge(B[std::make_pair(y,j)],B[std::make_pair(y,i)],anc_y).first;
+                    edge_tree e2 = boost::add_edge(B[std::make_pair(y,j)],
+                        B[std::make_pair(y,i)],anc_y).first;
                 }
             }
             else{
@@ -126,7 +129,8 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i,
                     vertex_tree vertex_for_x = boost::add_vertex(anc_y);
                     anc_y[vertex_for_x].v_in_g = x;
                     anc_y[vertex_for_x].p_in_t = B[std::make_pair(y,anc_i[parent_of_x].v_in_g)];
-                    edge_tree e2 = boost::add_edge(B[std::make_pair(y,anc_i[parent_of_x].v_in_g)],vertex_for_x,anc_y).first;
+                    edge_tree e2 = boost::add_edge(B[std::make_pair(y,anc_i[parent_of_x].v_in_g)],
+                        vertex_for_x,anc_y).first;
                     B[std::make_pair(y,x)] = vertex_for_x;
                 }
                 else{
@@ -164,8 +168,10 @@ void aimn91(Graph& g, DistanceMap& D)
        infinity as a value */
     for(int i=0;i<N;i++)
         for(int j=0;j<N;j++){
-            if (i==j) d[std::make_pair(i,j)] = 0;
-            else d[std::make_pair(i,j)] = std::numeric_limits<int>::max();
+            if (i==j)
+                d[std::make_pair(i,j)] = 0;
+            else
+                d[std::make_pair(i,j)] = std::numeric_limits<int>::max();
             F[std::make_pair(i,j)] = NULL;
             B[std::make_pair(i,j)] = NULL;
         }
