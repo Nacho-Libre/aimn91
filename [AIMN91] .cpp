@@ -16,7 +16,8 @@ boost::ptr_map<vertex_desc, Tree> DESC,ANC;
    vertices. */
 std::map<std::pair<vertex_desc,vertex_desc>, vertex_tree> F,B;
 
-void UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i, vertex_desc j, Tree& pruned_desc_j)
+void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i,
+    vertex_desc j, Tree& pruned_desc_j, int w)
 {
     vertex_tree y_in_tree,w;
     std::pair<tree_vertex_it, tree_vertex_it> vi_tree;
@@ -43,7 +44,7 @@ void UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i, vertex_desc j, 
         
         /* if total distance from vertex x to vertex y is shortent after (i,j) 
            edge was added. */
-        if (dist_x_i + 1 + dist_j_y < dist_x_y){
+        if (dist_x_i + w + dist_j_y < dist_x_y){
             /**************************************/
             /* update forward minimal path trees. */
             /**************************************/
@@ -137,7 +138,7 @@ void UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i, vertex_desc j, 
                 }
             }
             /* updating distance matrix values. */
-            d[std::make_pair(x,y)] = d[std::make_pair(x,i)]+1+d[std::make_pair(j,y)];
+            d[std::make_pair(x,y)] = d[std::make_pair(x,i)]+ w +d[std::make_pair(j,y)];
             /* iterating over out edges of y and adding y's children in Q. */
             for (out_ei=out_edges(y_in_tree,pruned_desc_j); out_ei.first != out_ei.second; ++out_ei.first){
                 Q.push(target(*out_ei.first,pruned_desc_j));
@@ -147,7 +148,7 @@ void UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i, vertex_desc j, 
     /* wow so much recursiveness. */
     if (boost::num_vertices(N)!=0){
         for (out_ei=out_edges(x_in_tree,anc_i); out_ei.first != out_ei.second; ++out_ei.first){
-            UpdateForwardBackward(target(*out_ei.first,anc_i),i,j,N);
+            UpdateForwardBackward(target(*out_ei.first,anc_i),i,j,N,w);
         }
     }
 }
