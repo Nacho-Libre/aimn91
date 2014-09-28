@@ -9,6 +9,7 @@
 #include <boost/any.hpp>
 #include <limits>
 #include <queue>
+#include <stack>
 
 // Graph type definition
 typedef boost::adjacency_list < boost::vecS,boost::vecS,boost::undirectedS,
@@ -17,6 +18,7 @@ typedef boost::adjacency_list < boost::vecS,boost::vecS,boost::undirectedS,
 
 typedef boost::graph_traits<Graph>::vertex_descriptor vertex_desc;
 typedef boost::graph_traits<Graph>::vertex_iterator vertex_it;
+typedef boost::graph_traits<Graph>::edge_descriptor edge_desc;
 typedef boost::property_map<Graph, boost::edge_weight_t>::type WeightMap;
 
 // tree graph info
@@ -43,13 +45,13 @@ typedef boost::graph_traits<Tree>::vertex_iterator tree_vertex_it;
    index to an std::map that returns an integer value which represents the
    shortest path distance between from vertex x to vertex y. */
 typedef std::map<std::pair<vertex_desc,vertex_desc>, int> Map;
-typedef std::stack<vertex_desc> path;
+typedef std::stack<std::pair<vertex_desc,vertex_desc> > path;
 
 class DistanceMap{
         public:
             void init_DistanceMap(Graph& g);
-            void add(vertex_desc x, vertex_desc y, int w);
-            void decrease(vertex_desc x, vertex_desc y, int w);
+            void add(vertex_desc x, vertex_desc y, int w, Graph& g);
+            void decrease(vertex_desc x, vertex_desc y, int w, Graph& g);
             int length(vertex_desc x, vertex_desc y);
             path minpath(vertex_desc x, vertex_desc y);
             void UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i,
@@ -64,4 +66,4 @@ class DistanceMap{
             /* We are going to use this type to store pointers to the ANC and DESC trees
                vertices. */
             std::map<std::pair<vertex_desc,vertex_desc>, vertex_tree> F,B;
-}
+};
