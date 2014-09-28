@@ -147,7 +147,7 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i,
 /**********************************/
 /* Data structure initialization. */
 /**********************************/
-void DistanceMap::init_DistanceMap(Graph& g)
+DistanceMap::DistanceMap(Graph& g)
 {
     std::pair<vertex_it, vertex_it> vi;
     int N = boost::num_vertices(g);

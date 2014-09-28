@@ -49,7 +49,7 @@ typedef std::stack<std::pair<vertex_desc,vertex_desc> > path;
 
 class DistanceMap{
         public:
-            void init_DistanceMap(Graph& g);
+            DistanceMap(Graph& g);
             void add(vertex_desc x, vertex_desc y, int w, Graph& g);
             void decrease(vertex_desc x, vertex_desc y, int w, Graph& g);
             int length(vertex_desc x, vertex_desc y);
