@@ -5,21 +5,10 @@
 
 #include "aimn91.h"
 
-DistanceMap d;
-/* using boost pointer map we associate each vertex with a set of descendants
-   organised as a tree of forward minimal paths (DESC[x]) rooted at x and a set
-   of ancestors organized as a tree of backward minimal paths (ANC[x]) rooted at
-   x and Initialize each tree with its root vertex. */
-boost::ptr_map<vertex_desc, Tree> DESC,ANC;
-
-/* We are going to use this type to store pointers to the ANC and DESC trees
-   vertices. */
-std::map<std::pair<vertex_desc,vertex_desc>, vertex_tree> F,B;
-
 void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i,
     vertex_desc j, Tree& pruned_desc_j, int w)
 {
-    vertex_tree y_in_tree,w;
+    vertex_tree y_in_tree;
     std::pair<tree_vertex_it, tree_vertex_it> vi_tree;
     std::queue<vertex_tree> Q;
     Tree N;
@@ -56,7 +45,7 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i,
                     vertex_tree vertex_for_j = boost::add_vertex(desc_x);
                     desc_x[vertex_for_j].v_in_g = j;
                     desc_x[vertex_for_j].p_in_t = F[std::make_pair(x,i)];
-                    edge_tree e1 = boost::add_edge(F[std::make_pair(x,i)],vertex_for_j,desc_x).first;
+                    boost::add_edge(F[std::make_pair(x,i)],vertex_for_j,desc_x).first;
                     F[std::make_pair(x,j)] = vertex_for_j;
                 }
                 else{
@@ -64,8 +53,7 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i,
                     boost::remove_edge(boost::any_cast<vertex_tree>(desc_x[F[std::make_pair(x,j)]].p_in_t),
                         F[std::make_pair(x,j)],desc_x);
                     desc_x[F[std::make_pair(x,j)]].p_in_t = F[std::make_pair(x,i)];
-                    edge_tree e1 = boost::add_edge(F[std::make_pair(x,i)],
-                        F[std::make_pair(x,j)],desc_x).first;
+                    boost::add_edge(F[std::make_pair(x,i)],F[std::make_pair(x,j)],desc_x).first;
                 }
 
                 /* create the pruned copy of desc_j. */
@@ -82,7 +70,7 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i,
                     vertex_tree vertex_for_y = boost::add_vertex(desc_x);
                     desc_x[vertex_for_y].v_in_g = y;
                     desc_x[vertex_for_y].p_in_t = F[std::make_pair(x,pruned_desc_j[parent_of_y].v_in_g)];
-                    edge_tree e1 = boost::add_edge(F[std::make_pair(x,desc_x[parent_of_y].v_in_g)],
+                    boost::add_edge(F[std::make_pair(x,desc_x[parent_of_y].v_in_g)],
                         vertex_for_y,desc_x).first;
                     F[std::make_pair(x,y)] = vertex_for_y;
                 }
@@ -90,7 +78,7 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i,
                     boost::remove_edge(boost::any_cast<vertex_tree>(desc_x[F[std::make_pair(x,y)]].p_in_t),
                         F[std::make_pair(x,y)],desc_x);
                     desc_x[F[std::make_pair(x,y)]].p_in_t = F[std::make_pair(x,desc_x[parent_of_y].v_in_g)];
-                    edge_tree e1 = boost::add_edge(F[std::make_pair(x,desc_x[parent_of_y].v_in_g)],
+                    boost::add_edge(F[std::make_pair(x,desc_x[parent_of_y].v_in_g)],
                         F[std::make_pair(x,y)],desc_x).first;
                 }
                 /* fill the pruned copy of desc_j. */
@@ -102,7 +90,7 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i,
                 }
                 N[y_in_N].v_in_g = y;
                 N[y_in_N].p_in_t = *vi_tree.first;
-                edge_tree e2 = boost::add_edge(*vi_tree.first,y_in_N,desc_x).first;
+                boost::add_edge(*vi_tree.first,y_in_N,desc_x).first;
             }
             /***************************************/
             /* update backward minimal path trees. */
@@ -112,15 +100,14 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i,
                     vertex_tree vertex_for_i = boost::add_vertex(anc_y);
                     anc_y[vertex_for_i].v_in_g = i;
                     anc_y[vertex_for_i].p_in_t = j;
-                    edge_tree e2 = boost::add_edge(B[std::make_pair(y,j)],vertex_for_i,anc_y).first;
+                    boost::add_edge(B[std::make_pair(y,j)],vertex_for_i,anc_y).first;
                     B[std::make_pair(y,i)] = vertex_for_i;
                 }
                 else{
                     boost::remove_edge(boost::any_cast<vertex_tree>(anc_y[B[std::make_pair(y,i)]].p_in_t),
                         B[std::make_pair(y,i)],anc_y);
                     anc_y[B[std::make_pair(y,i)]].p_in_t = B[std::make_pair(y,j)];
-                    edge_tree e2 = boost::add_edge(B[std::make_pair(y,j)],
-                        B[std::make_pair(y,i)],anc_y).first;
+                    boost::add_edge(B[std::make_pair(y,j)],B[std::make_pair(y,i)],anc_y).first;
                 }
             }
             else{
@@ -129,7 +116,7 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i,
                     vertex_tree vertex_for_x = boost::add_vertex(anc_y);
                     anc_y[vertex_for_x].v_in_g = x;
                     anc_y[vertex_for_x].p_in_t = B[std::make_pair(y,anc_i[parent_of_x].v_in_g)];
-                    edge_tree e2 = boost::add_edge(B[std::make_pair(y,anc_i[parent_of_x].v_in_g)],
+                    boost::add_edge(B[std::make_pair(y,anc_i[parent_of_x].v_in_g)],
                         vertex_for_x,anc_y).first;
                     B[std::make_pair(y,x)] = vertex_for_x;
                 }
@@ -137,7 +124,7 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, vertex_desc i,
                     boost::remove_edge(boost::any_cast<vertex_tree>(anc_y[B[std::make_pair(y,x)]].p_in_t),
                         B[std::make_pair(y,x)],anc_y);
                     anc_y[B[std::make_pair(y,x)]].p_in_t = B[std::make_pair(y,anc_i[parent_of_x].v_in_g)];
-                    edge_tree e2 = boost::add_edge(B[std::make_pair(y,anc_i[parent_of_x].v_in_g)],
+                    boost::add_edge(B[std::make_pair(y,anc_i[parent_of_x].v_in_g)],
                         B[std::make_pair(y,x)],anc_y).first;
                 }
             }
