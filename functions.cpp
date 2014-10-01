@@ -6,16 +6,34 @@
 
 #include "aimn91.h"
 // add edge (i,j) with edge weight w
-void DistanceMap::add(v_desc i, v_desc j, int w, Graph& g){
+void DistanceMap::add_e(v_desc i, v_desc j, int w, Graph& g){
     vertex_tree x = B[std::make_pair(i,i)];
     vertex_tree root = F[std::make_pair(j,j)];
     edge_desc e = boost::add_edge(i,j,g).first; //add new edge to the graph
     boost::put(boost::edge_weight, g, e, w); //assign weight to the new edge 
     UpdateForwardBackward(x,i,j,g[j].DESC,root,w,g); // update desc and anc trees
+
+    std::pair<vertex_it, vertex_it> vi;
+    std::pair<tree_vertex_it, tree_vertex_it> vi_tree;
+    // iterate over graph vertices
+  //for (vi=boost::vertices(g); vi.first != vi.second; ++vi.first){
+  //    std::cout<<"graph vertex: "<<*vi.first<<std::endl;
+  //    // iterate in each vertices ANC and DESC
+  //    std::cout<<"DESC "<<std::endl;
+  //    for (vi_tree=boost::vertices(g[*vi.first].DESC); vi_tree.first != vi_tree.second; ++vi_tree.first){
+  //        // print out vertices of the desc tree for vertex of graph ( vertices relation to g )
+  //        std::cout<<boost::any_cast<v_desc>(g[i].DESC[*vi_tree.first].v_g)<<std::endl;
+  //    }
+  //    std::cout<<"ANC "<<std::endl;
+  //    for (vi_tree=boost::vertices(g[*vi.first].ANC); vi_tree.first != vi_tree.second; ++vi_tree.first){
+  //        // print out vertices of the anc tree for vertex of graph ( vertices relation to g )
+  //        std::cout<<boost::any_cast<v_desc>(g[i].ANC[*vi_tree.first].v_g)<<std::endl;
+  //    }
+  //}
     return;
 }
 // decrease edge weight of existing edge (i,j)
-void DistanceMap::decrease(v_desc i, v_desc j, int w, Graph& g){
+void DistanceMap::decrease_w(v_desc i, v_desc j, int w, Graph& g){
     edge_desc e = boost::edge(i,j,g).first;
     int existing_weight = boost::get(boost::edge_weight, g, e);
     if (existing_weight > w){

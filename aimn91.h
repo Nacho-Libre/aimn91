@@ -58,8 +58,8 @@ typedef std::stack<std::pair<v_desc,v_desc> > path;
 class DistanceMap{
         public:
             DistanceMap(Graph& g);
-            void add(v_desc x, v_desc y, int w, Graph& g);
-            void decrease(v_desc x, v_desc y, int w, Graph& g);
+            void add_e(v_desc x, v_desc y, int w, Graph& g);
+            void decrease_w(v_desc x, v_desc y, int w, Graph& g);
             int length(v_desc x, v_desc y);
             path minpath(v_desc x, v_desc y, Graph& g);
             void UpdateForwardBackward(vertex_tree x_in_tree, v_desc i,
