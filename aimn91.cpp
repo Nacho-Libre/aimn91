@@ -99,7 +99,7 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, v_desc i,
                 if (B[make_pair(y,i)]==0){
                     vertex_tree vertex_for_i = add_vertex(g[y].ANC);
                     g[y].ANC[vertex_for_i].v_g = i;
-                    g[y].ANC[vertex_for_i].p_in_t = j;
+                    g[y].ANC[vertex_for_i].p_in_t = B[make_pair(y,j)];
                     add_edge(B[make_pair(y,j)],vertex_for_i,g[y].ANC).first;
                     B[make_pair(y,i)] = vertex_for_i;
                 }
