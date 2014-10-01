@@ -7,8 +7,9 @@
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/assign/ptr_map_inserter.hpp>
-#include <boost/any.hpp>
 #include <boost/foreach.hpp>
+#include <boost/any.hpp>
+#include <stdexcept>
 #include <limits>
 #include <queue>
 #include <stack>

@@ -7,6 +7,10 @@
 #include "aimn91.h"
 // add edge (i,j) with edge weight w
 void DistanceMap::add_e(v_desc i, v_desc j, int w, Graph& g){
+    if (boost::edge(i,j,g).second){
+        std::cout<<"Edge from vertex "<<i<<" to vertex "<<j<<" already exists"<<std::endl;
+        throw std::invalid_argument("Did not add edge");
+    }
     vertex_tree x = B[std::make_pair(i,i)];
     vertex_tree root = F[std::make_pair(j,j)];
     edge_desc e = boost::add_edge(i,j,g).first; //add new edge to the graph
@@ -34,6 +38,10 @@ void DistanceMap::add_e(v_desc i, v_desc j, int w, Graph& g){
 }
 // decrease edge weight of existing edge (i,j)
 void DistanceMap::decrease_w(v_desc i, v_desc j, int w, Graph& g){
+    if (!boost::edge(i,j,g).second){
+        std::cout<<"Edge from vertex "<<i<<" to vertex "<<j<<" does not exist"<<std::endl;
+        throw std::invalid_argument("Did not decrease weight");
+    }
     edge_desc e = boost::edge(i,j,g).first;
     int existing_weight = boost::get(boost::edge_weight, g, e);
     if (existing_weight > w){
