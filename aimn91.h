@@ -54,7 +54,7 @@ typedef boost::graph_traits<Tree>::vertex_iterator tree_vertex_it;
    index to an std::map that returns an integer value which represents the
    shortest path distance between from vertex x to vertex y. */
 typedef std::map<std::pair<v_desc,v_desc>, int> Map;
-typedef std::stack<std::pair<v_desc,v_desc> > path;
+typedef std::stack<edge_desc> path;
 
 class DistanceMap{
         public:

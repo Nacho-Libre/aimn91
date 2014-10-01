@@ -60,21 +60,21 @@ int DistanceMap::length(v_desc x, v_desc y){
 // return minpath from vertex x to vertex y
 path DistanceMap::minpath(v_desc x, v_desc y, Graph& g){
     path minpath;
-    std::pair<v_desc, v_desc> edge;
+    edge_desc e;
     if (F[std::make_pair(x,y)]==0)
         return minpath;
     else{
         //Tree desc_x = DESC[x];
-        vertex_tree root = F[std::make_pair(x,x)];
+        //vertex_tree root = F[std::make_pair(x,x)];
         vertex_tree it = F[std::make_pair(x,y)];
         vertex_tree it_p = boost::any_cast<vertex_tree>(g[x].DESC[it].p_in_t);
         do{
             v_desc it_in_g = boost::any_cast<v_desc>(g[x].DESC[it].v_g);
-            edge = std::make_pair(boost::any_cast<v_desc>(g[x].DESC[it_p].v_g), it_in_g);
-            minpath.push(edge);
+            e = boost::edge(boost::any_cast<v_desc>(g[x].DESC[it_p].v_g), it_in_g,g).first;
+            minpath.push(e);
             it = it_p;
             it_p = boost::any_cast<vertex_tree>(g[x].DESC[it].p_in_t);
-        }while(it_p!=root);
+        }while(it_p!=it);
     }
     return minpath;
 }
