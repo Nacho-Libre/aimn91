@@ -1,6 +1,6 @@
 CC=g++
 WARN=-Wall -Wextra
-CFLAGS= -std=c++11 -O2 -fno-strict-aliasing
+CFLAGS=-O2 -fno-strict-aliasing
 
 all: testing
 
