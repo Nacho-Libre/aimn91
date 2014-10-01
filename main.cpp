@@ -7,5 +7,18 @@
 
 int main(){
     /* create a sample graph with no edges and test data structure */
+    Graph g;
+    v_desc v,z;
+    for(int i=0;i<10;i++){
+        v = boost::add_vertex(g);
+        z = boost::add_vertex(g);
+    }
+    DistanceMap d(g);
+
+    std::cout<<"i = "<<v<<", j = "<<z<<std::endl;
+    d.add(v,z,6,g);
+    d.add(z,v,6,g);
+    std::cout<<num_edges(g)<<std::endl;
+
     return 0;
 }
