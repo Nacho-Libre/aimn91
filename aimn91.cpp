@@ -38,7 +38,7 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, v_desc i,
             /**************************************/
             if (y == j){
                 /* check if vertex already exist in Desc_x. */
-                if (F[make_pair(x,j)]==NULL){
+                if (F[make_pair(x,j)]==0){
                 /* add vertex_for_j in desc_x as a children of i and connect Graph
                    vertex with corrilating descendants tree vertex. */
                     vertex_tree vertex_for_j = add_vertex(g[x].DESC);
@@ -64,7 +64,7 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, v_desc i,
             }
             else{
                 vertex_tree p_y = any_cast<vertex_tree>(desc_j[y_in_tree].p_in_t);
-                if (F[make_pair(x,y)]==NULL){
+                if (F[make_pair(x,y)]==0){
                     /* add vertex_for_y in desc_x with the same parent it has in
                     pruned desc_j. */
                     vertex_tree vertex_for_y = add_vertex(g[x].DESC);
@@ -96,7 +96,7 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, v_desc i,
             /* update backward minimal path trees. */
             /***************************************/
             if (x == i){
-                if (B[make_pair(y,i)]==NULL){
+                if (B[make_pair(y,i)]==0){
                     vertex_tree vertex_for_i = add_vertex(g[y].ANC);
                     g[y].ANC[vertex_for_i].v_g = i;
                     g[y].ANC[vertex_for_i].p_in_t = j;
@@ -112,7 +112,7 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, v_desc i,
             }
             else{
                 vertex_tree p_x = any_cast<vertex_tree>(g[i].ANC[x_in_tree].p_in_t);
-                if (B[make_pair(y,x)]==NULL){
+                if (B[make_pair(y,x)]==0){
                     vertex_tree vertex_for_x = add_vertex(g[y].ANC);
                     g[y].ANC[vertex_for_x].v_g = x;
                     g[y].ANC[vertex_for_x].p_in_t = B[make_pair(y,any_cast<v_desc>(g[i].ANC[p_x].v_g))];
@@ -158,8 +158,8 @@ DistanceMap::DistanceMap(Graph& g)
                 d[make_pair(*vi_i.first,*vi_j.first)] = 0;
             else
                 d[make_pair(*vi_i.first,*vi_j.first)] = numeric_limits<int>::max();
-            F[make_pair(*vi_i.first,*vi_j.first)] = NULL;
-            B[make_pair(*vi_i.first,*vi_j.first)] = NULL;
+            F[make_pair(*vi_i.first,*vi_j.first)] = 0;
+            B[make_pair(*vi_i.first,*vi_j.first)] = 0;
         }
     for (vi=vertices(g); vi.first != vi.second; ++vi.first){
         /* create descedants tree for vertex pointed by vi.first. */

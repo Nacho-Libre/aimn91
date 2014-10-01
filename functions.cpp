@@ -35,7 +35,7 @@ int DistanceMap::length(v_desc x, v_desc y){
 path DistanceMap::minpath(v_desc x, v_desc y, Graph& g){
     path minpath;
     std::pair<v_desc, v_desc> edge;
-    if (F[std::make_pair(x,y)]==NULL)
+    if (F[std::make_pair(x,y)]==0)
         return minpath;
     else{
         //Tree desc_x = DESC[x];
