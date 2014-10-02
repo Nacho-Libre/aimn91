@@ -63,12 +63,12 @@ class DistanceMap{
             void decrease_w(v_desc x, v_desc y, int w);
             int length(v_desc x, v_desc y);
             path minpath(v_desc x, v_desc y);
-            void UpdateForwardBackward(vertex_tree x_in_tree, v_desc i,
-                v_desc j, Tree& desc_j, vertex_tree root, int w);
         private:
             Map d;
             Graph& g;
             /* We are going to use this type to store pointers to the ANC and DESC trees
                vertices. */
             std::map<std::pair<v_desc,v_desc>, vertex_tree> F,B;
+            void UpdateForwardBackward(vertex_tree x_in_tree, v_desc i,
+                v_desc j, Tree& desc_j, vertex_tree root, int w);
 };
