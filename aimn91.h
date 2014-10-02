@@ -43,6 +43,7 @@ typedef boost::adjacency_list < boost::listS,boost::listS,boost::directedS,
 typedef boost::graph_traits<Graph>::vertex_descriptor v_desc;
 typedef boost::graph_traits<Graph>::vertex_iterator vertex_it;
 typedef boost::graph_traits<Graph>::edge_descriptor edge_desc;
+typedef boost::graph_traits<Graph>::edge_iterator e_it;
 typedef boost::property_map<Graph, boost::edge_weight_t>::type WeightMap;
 
 typedef boost::graph_traits<Tree>::vertex_descriptor vertex_tree;

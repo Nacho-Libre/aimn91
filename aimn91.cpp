@@ -152,6 +152,7 @@ DistanceMap::DistanceMap(Graph& G)
     /* point class member to graph G */
     g = G;
     pair<vertex_it, vertex_it> vi, vi_i, vi_j;
+    pair<e_it, e_it> ei;
     /* initialize Distance matrix d with max int values in order to simulate 
        infinity as a value */
     for (vi_i=vertices(g); vi_i.first != vi_i.second; ++vi_i.first)
@@ -180,6 +181,13 @@ DistanceMap::DistanceMap(Graph& G)
         g[*vi.first].ANC[r_a].p_in_t = r_a;
         g[*vi.first].ANC[graph_bundle].root = r_a;
         B[make_pair(*vi.first,*vi.first)] = r_a;
+    }
+    for (ei=edges(g); ei.first != ei.second; ++ei.first){
+        v_desc i = source(*ei.first,g), j = target(*ei.first,g);
+        vertex_tree x = B[std::make_pair(i,i)];
+        vertex_tree root = F[std::make_pair(j,j)];
+        int w = get(edge_weight, g, *ei.first);
+        UpdateForwardBackward(x,i,j,g[j].DESC,root,w);
     }
 }
 
