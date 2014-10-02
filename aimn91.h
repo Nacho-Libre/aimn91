@@ -58,16 +58,16 @@ typedef std::stack<edge_desc> path;
 
 class DistanceMap{
         public:
-            DistanceMap(Graph& g);
-            void add_e(v_desc x, v_desc y, int w, Graph& g);
-            void decrease_w(v_desc x, v_desc y, int w, Graph& g);
+            DistanceMap(Graph& G);
+            void add_e(v_desc x, v_desc y, int w);
+            void decrease_w(v_desc x, v_desc y, int w);
             int length(v_desc x, v_desc y);
-            path minpath(v_desc x, v_desc y, Graph& g);
+            path minpath(v_desc x, v_desc y);
             void UpdateForwardBackward(vertex_tree x_in_tree, v_desc i,
-                v_desc j, Tree& desc_j, vertex_tree root, int w, Graph& g);
-            void test(Graph& g, v_desc i,v_desc h);
+                v_desc j, Tree& desc_j, vertex_tree root, int w);
         private:
             Map d;
+            Graph& g;
             /* We are going to use this type to store pointers to the ANC and DESC trees
                vertices. */
             std::map<std::pair<v_desc,v_desc>, vertex_tree> F,B;

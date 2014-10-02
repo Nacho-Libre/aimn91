@@ -18,21 +18,21 @@ int main(){
     edge_desc e;
 
     std::cout<<"i = "<<v<<", j = "<<z<<std::endl;
-    d.add_e(v,z,6,g);
+    d.add_e(v,z,6);
     std::cout<<"i = "<<z<<", j = "<<k<<std::endl;
-    d.add_e(z,k,2,g);
+    d.add_e(z,k,2);
     std::cout<<"i = "<<z<<", j = "<<r<<std::endl;
-    d.add_e(z,r,7,g);
+    d.add_e(z,r,7);
     std::cout<<"i = "<<f<<", j = "<<v<<std::endl;
-    d.add_e(f,v,5,g);
-    path minpath = d.minpath(f,r,g);
+    d.add_e(f,v,5);
+    path minpath = d.minpath(f,r);
     while(!minpath.empty()){
         e = minpath.top();
         std::cout<<boost::source(e,g)<<" "<<boost::target(e,g)<<std::endl;
         minpath.pop();
     }
-    d.add_e(v,r,3,g);
-    minpath = d.minpath(f,r,g);
+    d.add_e(v,r,3);
+    minpath = d.minpath(f,r);
     while(!minpath.empty()){
         e = minpath.top();
         std::cout<<boost::source(e,g)<<" "<<boost::target(e,g)<<std::endl;

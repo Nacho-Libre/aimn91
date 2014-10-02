@@ -7,9 +7,8 @@
 
 using namespace boost;
 using namespace std;
-
 void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, v_desc i,
-    v_desc j, Tree& desc_j, vertex_tree root, int w, Graph& g)
+    v_desc j, Tree& desc_j, vertex_tree root, int w)
 {
     vertex_tree y_in_tree;
     pair<tree_vertex_it, tree_vertex_it> vi_tree;
@@ -139,7 +138,7 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, v_desc i,
     /* wow so much recursiveness. */
     if (num_vertices(N)!=0){
         for (out_ei=out_edges(x_in_tree,g[i].ANC); out_ei.first != out_ei.second; ++out_ei.first){
-            UpdateForwardBackward(target(*out_ei.first,g[i].ANC),i,j,N,root,w,g);
+            UpdateForwardBackward(target(*out_ei.first,g[i].ANC),i,j,N,root,w);
         }
     }
 }
@@ -147,8 +146,11 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, v_desc i,
 /**********************************/
 /* Data structure initialization. */
 /**********************************/
-DistanceMap::DistanceMap(Graph& g)
+DistanceMap::DistanceMap(Graph& G)
+:g(G)
 {
+    /* point class member to graph G */
+    g = G;
     pair<vertex_it, vertex_it> vi, vi_i, vi_j;
     /* initialize Distance matrix d with max int values in order to simulate 
        infinity as a value */
