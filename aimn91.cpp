@@ -47,7 +47,6 @@ void DistanceMap::UpdateForwardBackward(vertex_tree x_in_tree, v_desc i,
                     F[make_pair(x,j)] = vertex_for_j;
                 }
                 else{
-                    std::cout<<"bb"<<std::endl;
                     /* removing old edge to j and adding the correct one. */
                     remove_edge(any_cast<vertex_tree>(g[x].DESC[F[make_pair(x,j)]].p_in_t),
                         F[make_pair(x,j)],g[x].DESC);
