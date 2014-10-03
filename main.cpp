@@ -73,11 +73,17 @@ int main(){
         el_s = end - start;
         std::cout<<"\t\t>>>[johnson_all_pairs_shortest_paths] elapsed time->"<<el_s.count()<<"s \n";
 
+        // timing floyd_warshall_all_pairs_shortest_paths on g_test
+        start = std::chrono::system_clock::now();
+        boost::floyd_warshall_all_pairs_shortest_paths(g_test, D);
+        end = std::chrono::system_clock::now();
+        el_s = end - start;
+        std::cout<<"\t\t>>>[floyd_warshall_all_pairs_shortest_paths] elapsed time->"<<el_s.count()<<"s \n";
+
         std::cout<<"\n\t**************[testing upon edge addition]**************"<<std::endl;
 
         int count=0;
         v_desc v_1,v_2;
-        v_desc_t v_1_t,v_2_t;
         gen.seed(std::time(NULL));
         // first we need to select some random vertices from each graph
         for (it_out=boost::vertices(g); it_out.first != it_out.second; ++it_out.first){

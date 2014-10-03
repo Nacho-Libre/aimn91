@@ -10,6 +10,7 @@
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int_distribution.hpp>
 #include <boost/graph/johnson_all_pairs_shortest.hpp>
+#include <boost/graph/floyd_warshall_shortest.hpp>
 #include <boost/foreach.hpp>
 #include <boost/any.hpp>
 #include <stdexcept>
