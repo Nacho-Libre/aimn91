@@ -7,12 +7,15 @@
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/assign/ptr_map_inserter.hpp>
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_int_distribution.hpp>
+#include <boost/graph/johnson_all_pairs_shortest.hpp>
 #include <boost/foreach.hpp>
 #include <boost/any.hpp>
 #include <stdexcept>
 #include <limits>
-#include <queue>
 #include <stack>
+#include <ctime>
 
 // tree graph info
 struct tree_graph_info {
