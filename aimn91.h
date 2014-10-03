@@ -46,6 +46,14 @@ typedef boost::graph_traits<Graph>::edge_descriptor edge_desc;
 typedef boost::graph_traits<Graph>::edge_iterator e_it;
 typedef boost::property_map<Graph, boost::edge_weight_t>::type WeightMap;
 
+// Graph type to test with other algorithms
+typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::directedS,
+        boost::no_property,
+        boost::property< boost::edge_weight_t, int> > Graph_test;
+
+typedef boost::graph_traits<Graph_test>::edge_descriptor edge_desc_t;
+typedef boost::graph_traits<Graph_test>::vertex_iterator vertex_it_t;
+
 typedef boost::graph_traits<Tree>::vertex_descriptor vertex_tree;
 typedef boost::graph_traits<Tree>::edge_descriptor edge_tree;
 typedef boost::graph_traits<Tree>::out_edge_iterator out_edges_it;
