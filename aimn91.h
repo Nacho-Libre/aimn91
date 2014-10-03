@@ -15,7 +15,7 @@
 #include <stdexcept>
 #include <limits>
 #include <stack>
-#include <ctime>
+#include <chrono>
 
 // tree graph info
 struct tree_graph_info {
