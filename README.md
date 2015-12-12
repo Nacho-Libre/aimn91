@@ -1,5 +1,4 @@
 ##AIMN91
-======
 This repo is just an expirimental implementation of the dynamic incremental algorithm [AIMN91] for minimal length paths as described in the 'Journal of Algorithms 12 (1991), pp.615-638'.
 
 ###some words
@@ -15,5 +14,5 @@ Have in mind that the code comes with ABSOLUTELY NO WARRANTY.
 You will need C++11 or above with BOOST Library.
 
 ####Author
----
+-------
 Gryllos Prokopis gryllosprokopis@gmail.com
