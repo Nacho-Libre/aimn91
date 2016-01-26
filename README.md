@@ -6,7 +6,7 @@ __AIMN91__ targets the problem of mainting an All Pairs Shortest Paths Matrix in
 
 The algorithm showcases some good and hard aspects of dynamic programming, like the use of binary trees and recursive logic to achieve amazingly good time complexity on update operations but it does that by producing and utilizing enormous amount of data which makes it unusable for many real world problem.
 
-The repository was developed for experimentioh with the algorithm and it's characteristics so it might be usefull for anyone who also wants to experiment with AIMN91. In case you want to run an execution have in mind that `main.cpp` provides a set of tests and comparisons with other APSP approaches (e.g. Floyd Warshall's APSP) but the whole procedure is not that intuitively layed down.
+The repository was developed for experimentation with the algorithm and it's characteristics so it might be usefull for anyone who also wants to experiment with AIMN91. In case you want to run an execution have in mind that `main.cpp` provides a set of tests and comparisons with other APSP approaches (e.g. Floyd Warshall's APSP) but the whole procedure is not that intuitively layed down.
 
 Have in mind that the code comes with ABSOLUTELY NO WARRANTY.
 
